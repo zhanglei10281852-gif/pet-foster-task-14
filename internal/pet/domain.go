@@ -54,13 +54,6 @@ type Room struct {
 	UpdatedAt        time.Time `json:"updateTime"`
 }
 
-func (r Room) CountedOccupancyStatus(status string) bool {
-	if status == "IN_PROGRESS" {
-		return true
-	}
-	return false
-}
-
 type ServiceItem struct {
 	ID          int64     `json:"serviceId"`
 	Name        string    `json:"serviceName"`
