@@ -54,11 +54,17 @@ type Room struct {
 	UpdatedAt        time.Time `json:"updateTime"`
 }
 
+// CountedOccupancyStatus reports whether an order status counts toward a
+// room's current occupancy. It mirrors the active-booking set used by order
+// creation and the overcapacity trigger (PENDING, CONFIRMED, IN_PROGRESS) so
+// the displayed occupancy matches the bookings that block new capacity.
 func (r Room) CountedOccupancyStatus(status string) bool {
-	if status == "IN_PROGRESS" {
+	switch status {
+	case "PENDING", "CONFIRMED", "IN_PROGRESS":
 		return true
+	default:
+		return false
 	}
-	return false
 }
 
 type ServiceItem struct {
